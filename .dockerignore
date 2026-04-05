@@ -1,0 +1,22 @@
+# Dependencies & build output
+node_modules
+.next
+out
+
+# Git & IDE
+.git
+.gitignore
+.cursor
+*.md
+
+# Env (inject at runtime: -e GOOGLE_APPS_SCRIPT_URL=... or compose env_file)
+.env
+.env.*
+!.env.example
+
+# Misc
+.DS_Store
+npm-debug.log*
+.vercel
+coverage
+*.tsbuildinfo
