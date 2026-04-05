@@ -1,26 +1,198 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --beam-bg: #4e0093;
+    --beam-deep: #0d0048;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(2%, -1.5%);
+  }
+}
+
+@keyframes ring-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes border-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(192, 132, 252, 0.35),
+      0 0 60px rgba(124, 58, 237, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 35px rgba(244, 114, 182, 0.45),
+      0 0 90px rgba(124, 58, 237, 0.35);
+  }
+}
+
+.starry-sky {
+  background: radial-gradient(ellipse 120% 100% at 50% 0%, #6b21a8 0%, var(--beam-bg) 42%, var(--beam-deep) 100%);
+}
+
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: #fff;
+  animation: twinkle var(--twinkle-duration, 3s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+}
+
+.star-drift {
+  animation: drift 28s ease-in-out infinite;
+}
+
+.cta-ring {
+  animation: ring-pulse 3.2s ease-in-out infinite;
+}
+
+.cta-spin {
+  animation: spin-slow 14s linear infinite;
+}
+
+.cta-glow {
+  animation: border-glow 2.8s ease-in-out infinite;
+}
+
+.noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes shimmer-btn {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.btn-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer-btn 2.8s ease-in-out infinite;
+}
+
+/*
+ * Logo shimmer — same wordmark as frontend `/LOGO.png`. `::after` is masked to that PNG
+ * so the highlight only hits the letters (matches `LogoWithShine` image).
+ */
+.logo-animated {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  background: transparent;
+}
+
+.logo-img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: transparent !important;
+}
+
+.logo-animated::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 36%,
+    rgba(255, 255, 255, 0.22) 47%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.22) 53%,
+    transparent 64%,
+    transparent 100%
+  );
+  background-size: 55% 100%;
+  background-repeat: no-repeat;
+  background-position: -70% 0;
+  animation: logo-shimmer 10s ease-in-out infinite;
+  pointer-events: none;
+  mask-image: url("/LOGO.png");
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("/LOGO.png");
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+@keyframes logo-shimmer {
+  0% {
+    background-position: -70% 0;
+  }
+  35% {
+    background-position: -70% 0;
+  }
+  50% {
+    background-position: 170% 0;
+  }
+  65% {
+    background-position: 170% 0;
+  }
+  100% {
+    background-position: 170% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star,
+  .star-drift,
+  .cta-ring,
+  .cta-spin,
+  .cta-glow,
+  .btn-shimmer,
+  .logo-animated::after {
+    animation: none !important;
+  }
 }

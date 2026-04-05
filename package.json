@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "clean": "rm -rf .next node_modules/.cache",
+    "dev": "rm -rf .next && next dev",
+    "dev:incremental": "next dev",
+    "dev:clean": "npm run clean && next dev",
+    "build": "next build",
+    "rebuild": "npm run clean && npm run build",
     "start": "next start",
     "lint": "eslint"
   },
