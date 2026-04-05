@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  beam-coming-soon:
+    container_name: beam-coming-soon
+    # Image is published by .github/workflows/docker-publish.yml
+    image: ghcr.io/hmmchat/beam-place-coming-soon:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:3001:3000"
