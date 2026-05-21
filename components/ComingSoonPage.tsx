@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RegisterModal } from "./RegisterModal";
 import { StarryField } from "./StarryField";
 import { LogoWithShine } from "./LogoWithShine";
+import { DareDrop } from "./DareDrop";
 
 export function ComingSoonPage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,7 +22,7 @@ export function ComingSoonPage() {
           aria-hidden
         />
 
-        <div className="relative z-10 flex w-full max-w-lg flex-col items-center px-8 pb-8 pt-12">
+        <div className="relative z-10 flex w-full max-w-2xl flex-col items-center px-6 pb-12 pt-12 md:px-8">
           {/* Orbiting accent — pure shape, no copy */}
           <div className="relative mb-10 flex h-[min(52vw,220px)] w-[min(52vw,220px)] items-center justify-center">
             <div className="cta-ring absolute inset-0 rounded-full border border-white/15" />
@@ -54,6 +55,8 @@ export function ComingSoonPage() {
               <span className="relative">JOIN THE WAITLIST</span>
             </button>
           </div>
+
+          <DareDrop />
         </div>
       </div>
 
